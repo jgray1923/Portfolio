@@ -8,6 +8,7 @@ Created on Fri Oct 20 14:47:14 2017
 import random
 import matplotlib.pyplot
 import csv
+import sys
 
 # Import code required for the ABM
 import agentframework
@@ -34,16 +35,11 @@ f.close()
 #matplotlib.pyplot.imshow(environment)
 #matplotlib.pyplot.show()
 
-# Create variable for number of agents
-num_of_agents = 20
-# Create variable for number of agent's movements in for loop
-num_of_iterations = 150
-# Create variable for neighbourhood size
-neighbourhood = 20
+# Set the variables as arguments for runnig the ABM via command prompt
+num_of_agents = int(sys.argv[1])
+num_of_iterations = int(sys.argv[2])
+neighbourhood = int(sys.argv[3])
 
-# Define function to calculate distance between two agents' pairs of coordinates
-def distance_between(agent0, agent1):
-    return (((agent0.x - agent0.x)**2) + ((agent1.y - agent1.y)**2))**0.5
 
 # Create a list for agents
 agents =[]
@@ -62,7 +58,7 @@ for i in range(num_of_agents):
 # eating/grazing throughout the environment. If the sheep are within close proximity
 # to one another (neighbourhood), the sheep will share the environment
 for j in range(num_of_iterations):
-#ramdomise the agents iterations   
+#ramdomise the agents iterations    
     random.shuffle(agents)
     for i in range(num_of_agents):
         agents[i].move()
