@@ -31,15 +31,16 @@ for row in reader:
     environment.append(rowlist)
 f.close()
 
-# Generate a graph to display the environment data
-#matplotlib.pyplot.imshow(environment)
-#matplotlib.pyplot.show()
-
 # Set the variables as arguments for runnig the ABM via command prompt
-num_of_agents = int(sys.argv[1])
-num_of_iterations = int(sys.argv[2])
-neighbourhood = int(sys.argv[3])
+#num_of_agents = int(sys.argv[1])
+#num_of_iterations = int(sys.argv[2])
+#neighbourhood = int(sys.argv[3])
 
+# Create variables for the number of agents within the ABM, their number of movements within the
+# environment, and the specified size of an agent's neighbourhood.
+num_of_agents = 20
+num_of_iterations = 50
+neighbourhood = 35
 
 # Create a list for agents
 agents =[]
@@ -49,41 +50,35 @@ agents =[]
 for i in range(num_of_agents):
     agents.append(agentframework.Agent(environment, agents))
 
-# Due to the for loop, we can now refer to each agent as agents[i]
+# Due to the for loop and agent framework, we can now refer to each agent as agents[i]
 # Due to the Agent class, we can refer to the x coordinate as agents[i].x
 # and we can refer to the y coordinate as agents[i].y
 
 
 # Create for loop for the movement of agents (sheep), and their subsequent 
 # eating/grazing throughout the environment. If the sheep are within close proximity
-# to one another (neighbourhood), the sheep will share the environment
+# to one another (neighbourhood), the sheep will share their store!
 for j in range(num_of_iterations):
-#ramdomise the agents iterations    
+# Ramdomise the agent's iterations    
     random.shuffle(agents)
     for i in range(num_of_agents):
         agents[i].move()
         agents[i].eat()
         agents[i].share_with_neighbours(neighbourhood)
+                
         
-
-## Use matplotlib.pyplot to plot the current locations of agents
-#matplotlib.pyplot.ylim(0, 100)
-#matplotlib.pyplot.xlim(0, 100)
-#for i in range(num_of_agents):
-#    matplotlib.pyplot.scatter(agents[i].x, agents[i].y, color='pink')
-#matplotlib.pyplot.show()
-
 # Create a graph to show the current location of the sheep within the environment
 # displaying where the sheep have been grazing 
-matplotlib.pyplot.xlim(0, 100)
-matplotlib.pyplot.ylim(0, 100)
+
+# Write so that any .csv environment could be added and the code will still run
+# The length of the environment's first index (x coordinates)
+matplotlib.pyplot.xlim(0, len(environment[0]))
+# The length of the environment (y coordinates)
+matplotlib.pyplot.ylim(0, len(environment))
 matplotlib.pyplot.imshow(environment)
 for i in range(num_of_agents):
     matplotlib.pyplot.scatter(agents[i].x,agents[i].y, color='gray')
 matplotlib.pyplot.show()
-
-# Removed distance between code block, as it is now written within agentframework.py
-# and so is no longer required. 
 
 # Write out the environment as a file
 f2 = open('dataout.csv', 'w', newline='') 
@@ -92,3 +87,18 @@ for row in environment:
 	writer.writerow(row)		
 f2.close()
 
+# Create a variable for consumption
+consumption = 0
+# Write a for loop to create the total consumption(store) of all sheep within ABM
+for agent in agents:
+    consumption = (consumption + agents[i].store)
+# Write this out as a file
+f2 = open('consumption.csv', 'w', newline='')
+writer = csv.writer(f2, delimiter=',')
+for row in consumption:
+    writer.writerow(row)
+f2.close()
+
+# Make the agents display their coordinates and store when agents are printed
+print(agents)    
+    
