@@ -33,15 +33,15 @@ class Agent():
 # Create if statement for movement using random agent's locations
 # change value of x coordinate within the extent of the environment          
         if random.random() < 0.5:
-            self.x = (self.x + 1) % 100
+            self.x = (self.x + 1) % len(self.environment[0])
         else:
-            self.x = (self.x - 1) % 100
+            self.x = (self.x - 1) % len(self.environment[0])
 # Create if statement for movement using random agent's locations
 # change value of y coordinate within the extent of the environment      
         if random.random() < 0.5:
-            self.y = (self.y + 1) % 100
+            self.y = (self.y + 1) % len(self.environment)
         else:
-            self.y = (self.y - 1) % 100
+            self.y = (self.y - 1) % len(self.environment)
             
             
 # Define 'eat' for the sheep to graze on the environment            
@@ -50,7 +50,7 @@ class Agent():
         if self.environment[self.y][self.x] > 10:
             self.environment[self.y][self.x] -= 10
 # When sheep eats, increase store by value of 10            
-            self.store += 10
+            self.store += 30
 # Elif statement; if the environment is greater than 0 (and lower than 10):
         elif self.environment[self.y][self.x] >0:
 # Make the sheep eat the remainder of the environment (but not any more!)
@@ -66,7 +66,7 @@ class Agent():
     def sick(self):
 # If the store is more than 500 (greedy sheep!)
         if self.store > 500:
-# Make the sheep sickk up some of their food
+# Make the sheep sick up some of their food
             self.store -= 50
 # Therefore increase the environment by the amount of sick up
             self.environment[self.y][self.x] += 50           
@@ -87,19 +87,49 @@ class Agent():
             distance = self.distance_between(agent)
  # Create if loop: if distance is less than or equal to neighbourhood           
             if distance <= self.neighbourhood:
-                # then set average as the store plus agent.store/2
+ # then set average as the store plus agent.store/2
                 average = (self.store + agent.store)/2 
-                # set self.store as average
+ # set self.store as average
                 self.store = average
-                # set agent.store as average
-                agent.store = average 
+ # set agent.store as average
+                agent.store = average# If distance is greater than 0
+                if distance > 0:
+ # Print found within distance, and the average store of agents
+                    print("Found agent within " + str(distance) + ". " + "Average store = " + str(average))
+ # Else pass (if the distance is the same (ie agent passing against itself, it will not print out)
+                else:
+                    pass
+                    
                 
-                agent.getstore()
-                agent.setstore(average)
-                # Print (agent) is sharing distanace 
-                print("Agent is sharing "+ str(distance) + " " + str(average))
-            
+# Define _str_ so that when 'agents' is printed, the x and y coordinates, and
+# store are displayed
+    def __str__(self):
+        for agent in self.agents:
+ # Return the values of the coordinates and stores. {} refers to the arguments, which are passed in .format()              
+            return("X coordinate= {0}, Y coordinate= {1}, Store= {2}".format(self.x, self.y, self.store))
         
-
+        
+# Define consumption as a method as opposed to a variable within the ABM.            
+    def consumption(self):
+ # Set consumption as zero       
+        consumption = 0
+        
+        for agent in self.agents:           
+            distance = self.distance_between(agent)
+# If distance is less than or equal to neighbourhood            
+            if distance <= self.neighbourhood:
+# Consumption = 0 plus the store of the agents                
+                consumption = (0 + (self.store + agent.store))
+ # If consumption is greater than 0               
+                if consumption > 0:
+# Print consumption                    
+                    print(" Consumption is currently: " + str(consumption))
+# Else pass - do not print consumption                    
+                else:
+                    pass
+# Else consumption = zero                 
+            else: 
+                consumption = 0
+                
         
             

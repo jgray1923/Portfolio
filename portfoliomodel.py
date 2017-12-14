@@ -8,7 +8,6 @@ Created on Fri Oct 20 14:47:14 2017
 import random
 import matplotlib.pyplot
 import csv
-import sys
 
 # Import code required for the ABM
 import agentframework
@@ -27,7 +26,6 @@ for row in reader:
     for value in row:	
         rowlist.append(value)
              
-        #print(value) 	
     environment.append(rowlist)
 f.close()
 
@@ -38,8 +36,8 @@ f.close()
 
 # Create variables for the number of agents within the ABM, their number of movements within the
 # environment, and the specified size of an agent's neighbourhood.
-num_of_agents = 20
-num_of_iterations = 50
+num_of_agents = 15
+num_of_iterations = 100
 neighbourhood = 35
 
 # Create a list for agents
@@ -64,7 +62,9 @@ for j in range(num_of_iterations):
     for i in range(num_of_agents):
         agents[i].move()
         agents[i].eat()
+        agents[i].sick()
         agents[i].share_with_neighbours(neighbourhood)
+        agents[i].consumption()
                 
         
 # Create a graph to show the current location of the sheep within the environment
@@ -80,6 +80,15 @@ for i in range(num_of_agents):
     matplotlib.pyplot.scatter(agents[i].x,agents[i].y, color='gray')
 matplotlib.pyplot.show()
 
+
+## Zoom in to the agents on the map
+matplotlib.pyplot.xlim(0, (agents[i].x))
+matplotlib.pyplot.ylim(0, (agents[i].y))
+matplotlib.pyplot.imshow(environment)
+for i in range(num_of_agents):
+    matplotlib.pyplot.scatter(agents[i].x,agents[i].y, color='gray')
+matplotlib.pyplot.show()
+
 # Write out the environment as a file
 f2 = open('dataout.csv', 'w', newline='') 
 writer = csv.writer(f2, delimiter=',')
@@ -87,18 +96,6 @@ for row in environment:
 	writer.writerow(row)		
 f2.close()
 
-# Create a variable for consumption
-consumption = 0
-# Write a for loop to create the total consumption(store) of all sheep within ABM
-for agent in agents:
-    consumption = (consumption + agents[i].store)
-# Write this out as a file
-f2 = open('consumption.csv', 'w', newline='')
-writer = csv.writer(f2, delimiter=',')
-for row in consumption:
-    writer.writerow(row)
-f2.close()
+# Print the class instances of agents
+print(agents[i])
 
-# Make the agents display their coordinates and store when agents are printed
-print(agents)    
-    
