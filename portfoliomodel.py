@@ -4,21 +4,21 @@ Created on Fri Oct 20 14:47:14 2017
 
 @author: JennieG
 """
-copyright 2017 Jennie Gray
-This file is part of portfoliomodel.py.
+# copyright 2017 Jennie Gray
+# This file is part of portfoliomodel.py.
 
-    portfoliomodel.py is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    portfoliomodel.py is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with portfoliomodel.py.  If not, see <http://www.gnu.org/licenses/>.
+#    portfoliomodel.py is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    portfoliomodel.py is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with portfoliomodel.py.  If not, see <http://www.gnu.org/licenses/>.
 
 # Import modules required for the ABM
 import random
@@ -52,9 +52,9 @@ f.close()
 
 # Create variables for the number of agents within the ABM, their number of movements within the
 # environment, and the specified size of an agent's neighbourhood.
-num_of_agents = 15
-num_of_iterations = 100
-neighbourhood = 35
+num_of_agents = 20
+num_of_iterations = 150
+neighbourhood = 30
 
 # Create a list for agents
 agents =[]
@@ -96,14 +96,6 @@ for i in range(num_of_agents):
     matplotlib.pyplot.scatter(agents[i].x,agents[i].y, color='gray')
 matplotlib.pyplot.show()
 
-
-## Zoom in to the agents on the map
-matplotlib.pyplot.xlim(0, (agents[i].x))
-matplotlib.pyplot.ylim(0, (agents[i].y))
-matplotlib.pyplot.imshow(environment)
-for i in range(num_of_agents):
-    matplotlib.pyplot.scatter(agents[i].x,agents[i].y, color='gray')
-matplotlib.pyplot.show()
 
 # Write out the environment as a file
 f2 = open('dataout.csv', 'w', newline='') 
