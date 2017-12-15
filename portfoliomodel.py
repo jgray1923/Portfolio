@@ -59,15 +59,25 @@ neighbourhood = 30
 # Create a list for agents
 agents =[]
 
+
 # Create for loop for creating random starting coordinates for agents, within 
 # the given environment
 for i in range(num_of_agents):
-    agents.append(agentframework.Agent(environment, agents))
+    agents.append(agentframework.Agent(environment,agents))
+    
 
 # Due to the for loop and agent framework, we can now refer to each agent as agents[i]
 # Due to the Agent class, we can refer to the x coordinate as agents[i].x
 # and we can refer to the y coordinate as agents[i].y
 
+
+# Write so that any .csv environment could be added and the code will still run
+# The length of the environment's first index (x coordinates)
+matplotlib.pyplot.xlim(0, len(environment[0]))
+# The length of the environment (y coordinates)
+matplotlib.pyplot.ylim(0, len(environment))
+matplotlib.pyplot.imshow(environment)
+matplotlib.pyplot.show()
 
 # Create for loop for the movement of agents (sheep), and their subsequent 
 # eating/grazing throughout the environment. If the sheep are within close proximity
@@ -80,9 +90,10 @@ for j in range(num_of_iterations):
         agents[i].eat()
         agents[i].sick()
         agents[i].share_with_neighbours(neighbourhood)
-        agents[i].consumption()
+        #agents[i].consumption()
                 
-        
+
+
 # Create a graph to show the current location of the sheep within the environment
 # displaying where the sheep have been grazing 
 
@@ -92,8 +103,16 @@ matplotlib.pyplot.xlim(0, len(environment[0]))
 # The length of the environment (y coordinates)
 matplotlib.pyplot.ylim(0, len(environment))
 matplotlib.pyplot.imshow(environment)
+matplotlib.pyplot.show()
+
+# Write so that any .csv environment could be added and the code will still run
+# The length of the environment's first index (x coordinates)
+matplotlib.pyplot.xlim(0, len(environment[0]))
+# The length of the environment (y coordinates)
+matplotlib.pyplot.ylim(0, len(environment))
+matplotlib.pyplot.imshow(environment)
 for i in range(num_of_agents):
-    matplotlib.pyplot.scatter(agents[i].x,agents[i].y, color='gray')
+   matplotlib.pyplot.scatter(agents[i].x,agents[i].y, color='gray')
 matplotlib.pyplot.show()
 
 

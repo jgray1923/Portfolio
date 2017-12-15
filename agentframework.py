@@ -109,12 +109,12 @@ class Agent():
                 self.store = average
  # set agent.store as average
                 agent.store = average# If distance is greater than 0
-                if distance > 0:
+             #   if distance > 0:
  # Print found within distance, and the average store of agents
-                    print("Found agent within " + str(distance) + ". " + "Average store = " + str(average))
+                  #  print("Found agent within " + str(distance) + ". " + "Average store = " + str(average))
  # Else pass (if the distance is the same (ie agent passing against itself, it will not print out)
-                else:
-                    pass
+              #  else:
+               #     pass
                     
                 
 # Define _str_ so that when 'agents' is printed, the x and y coordinates, and
@@ -133,19 +133,17 @@ class Agent():
         for agent in self.agents:           
             distance = self.distance_between(agent)
 # If distance is less than or equal to neighbourhood            
-            if distance <= self.neighbourhood:
+           # if distance <= self.neighbourhood:
 # Consumption = 0 plus the store of the agents                
-                consumption = (0 + (self.store + agent.store))
+                #consumption = (0 + (self.store + agent.store))
  # If consumption is greater than 0               
-                if consumption > 0:
+                # if consumption > 0:
 # Print consumption                    
-                    print(" Consumption is currently: " + str(consumption))
+                  #  print(" Consumption is currently: " + str(consumption))
 # Else pass - do not print consumption                    
-                else:
-                    pass
+              #  else:
+                    #pass
 # Else consumption = zero                 
-            else: 
-                consumption = 0
-                
-        
-            
+           # else: 
+               # consumption = 0
+              
